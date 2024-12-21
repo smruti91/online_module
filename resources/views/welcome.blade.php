@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Online Module</title>
 
@@ -908,6 +909,22 @@
                 }
             }
 
+            .programWrap{
+                padding: 10px;
+               
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            }
+            .programWrap  h2{
+                background: #efa440;
+                color: #0c30b3;
+
+              }
+              .program-details p {
+                font-size: 18px;
+              }
+              .program-details li{
+                font-size: 18px;
+              }
         </style>
     @endif
 </head>
@@ -997,40 +1014,77 @@
 
                                     </div>
                                     <div class="courseModuleWrap mt-3 d-none">
-                                        <button class="btn btn-primary moduleName" data-id="1">Orientation Module</button>
-                                        <button class="btn btn-primary moduleName2 refresh" data-id="2">Refresher Module</button>
-                                        <button class="btn btn-primary moduleName2 thematic" data-id="3">Thematic Module</button>
-                                        <button class="btn btn-primary moduleName2 custom" data-id="4">Custom Module</button>
+                                        <div class="col-sm-8">
+                                            <select class="form-select" name="module_id" id="module_id" aria-label="Default select example">
+                                                <option selected value="0">Select Module</option>
+                                                <option value="1">Orientation Module</option>
+                                                <option value="2">Refresher Module</option>
+                                                {{-- <option value="3">Thematic Module</option>
+                                                <option value="4">Custom Module</option> --}}
+                                                
+              
+                                              </select>
+                                        </div>
+                                       
                                     </div>
 
                                     <div class="courseWrap2 d-none mt-2">
                                         <div class="row">
-
-                                            <div class="col-6" style="border-radius: 5px;
-
-    height: 64%;
-    box-shadow: brown;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px">
-                                                <h1 style="font-size: 25px;
-    text-align: center;
-    font-weight: 500;" >courses</h1>
-                                                   <hr>
-                                                <ul>
-                                                 <li class="courses" style="cursor: pointer; font-size: 15px;color: black;" data-course-id = 1 >Training Program on Financial matters for different department officers</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-6 ml-1" style="box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
-
-                                                <h1 class="mt-2" style="font-size: 25px;
-                                                text-align: center;
-                                                font-weight: 500;" >Programs</h1>
-                                                <hr>
-                                                <div id="related-programs" style="border: 1px solid rgb(248, 242, 242);height: 75%;overflow: auto;" ></div>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Course Name </th>
+                                                        <th scope="col">Action</th>
+                                                        
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Training Program on Financial matters for different department officers</td>
+                                                        <td><button class="btn btn-primary course" data-course-id="1" >Know More</button></td>
+                                                        
+                                                    </tr>
+                                                   
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
 
                                     </div>
+                                    <!-- Modal -->
 
+                                    <div class="modal fade" id="programModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="exampleModalLabel">Course Details</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                   <div class="col-6 programWrap">
+                                                    <h2 class="text-center fs-3">Programs</h2>
+                                                    <hr>
+                                                    <div class="mt-3" id="related-programs"></div>
+                                                   </div>
+                                                   <div class="col-6 programWrap">
+                                                    <h2 class="text-center fs-3">Programs Details</h2>
+                                                    <hr>
+                                                    <div class="mt-3" id="program-details"></div>
+                                                   </div>
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                     {{-- <div class="row">
                                             <div class="col-2 d-flex justify-content-center align-items-center ">
                                                 <img src="resources/images/icons/book.png" alt="login" style="width:40px">
@@ -1331,6 +1385,11 @@
     <script src="resources/js/click-scroll.js"></script>
     <script src="resources/js/custom.js"></script>
     <script>
+         $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+            }
+        });
         $('.courseSearch').click(function() {
             let course = $(this).val();
             console.log(course);
@@ -1342,21 +1401,20 @@
             }
         })
 
-        $('.moduleName').click(function(){
-            let module_id = $(this).attr('data-id');
+        $('#module_id').change(function(){
+            let module_id = $(this).val();
             console.log(module_id);
 
             if(module_id == 1){
-              $('.moduleName2').addClass('d-none');
-              $('.courseWrap2').removeClass('d-none');
+                $('.courseWrap2').removeClass('d-none');
 
             }
-        })
+        });
 
-        $('.courses').on('click', function() {
+        $('.course').on('click', function() {
 
             const courseId = $(this).attr('data-course-id');
-
+            console.log(courseId);
             $.ajax({
             url: "{{ url('/course') }}/" + courseId + "/programs",
             type: "GET",
@@ -1368,7 +1426,7 @@
                     if (programs.length > 0) {
                         html += '<ul class="list-group">';
                         programs.forEach(function (program) {
-                            html += `<li class="list-group-item program-item" data-program-id="${program.id}" style="background-color: #4d57cb;color: #ffffff;margin-bottom: 10px;cursor: pointer;font-size:13px" >
+                            html += `<li class="list-group-item programItem" data-program-id="${program.id}" style="background-color: #4d57cb;color: #ffffff;margin-bottom: 10px;cursor: pointer;font-size:13px" >
                                 ${program.program_name}</li>`;
                         });
                         html += '</ul>';
@@ -1377,6 +1435,11 @@
                     }
 
                     $('#related-programs').html(html);
+                    $('#programModal').modal('show');
+                    $('.programItem').on('click',function(){
+                        let program_id = $(this).attr('data-program-id');
+                        getProgramDetail(program_id)
+                    });
                 } else {
                     $('#related-programs').html('<p>Error fetching data. Please try again.</p>');
                 }
@@ -1384,10 +1447,63 @@
             error: function () {
                 $('#related-programs').html('<p>An error occurred. Please try again.</p>');
             }
-        });
+         });
 
 
         });
+        
+       function getProgramDetail(program_id){
+       
+        $.ajax({
+            url: "{{ route('programDetails') }}",
+            type: "POST",
+            data:{program_id:program_id},
+
+            success: function (response) {
+                console.log(response);
+                if (response.status === 'success') {
+                   
+                    let programs = response.programs;
+
+                    let html = '';
+
+                    if (programs.length > 0) {
+                        html += '<ul class="list-group">';
+                        programs.forEach(function (program) {
+                            html += `<div class="program-details">
+                                      
+                                        <p><strong>Program Name:</strong> ${program.program.program_name}</p>
+                                        <p><strong>Duration:</strong> ${program.program.duration} days</p>
+                                        <p><strong>Start Date:</strong> ${program.start_date}</p>
+                                        <p><strong>End Date:</strong> ${program.end_date}</p>
+                                        <p><strong>Enrollment Start Date:</strong> ${program.en_start_date}</p>
+                                        <p><strong>Enrollment End Date:</strong> ${program.en_end_date}</p>
+                                        <p><strong>Exam Date:</strong> ${program.exam_date}</p>`;
+                            program.program_vc_dates.forEach(function(vc_date){
+                                 
+                                html +=`<li><strong>${vc_date.description}:</strong> ${vc_date.vc_date}</li>`
+                            })
+
+                            html +=`<button class="btn btn-primary" >View Subject </button>`;
+                            html += `</div>`;
+                        });
+                        html += '</ul>';
+                    } else {
+                        html = '<p>No related programs found.</p>';
+                    }
+
+                     $('#program-details').html(html);
+                    
+                   
+                } else {
+                    $('#program-details').html('<p>Error fetching data. Please try again.</p>');
+                }
+            },
+            error: function () {
+                $('#related-programs').html('<p>An error occurred. Please try again.</p>');
+            }
+         });
+       }
 
     </script>
 </body>

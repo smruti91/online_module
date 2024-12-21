@@ -19,7 +19,8 @@ Route::post('/send-otp', [LoginController::class, 'sendOTP'])->name('sendOTP');
 Route::post('/verify-otp', [LoginController::class, 'verifyOTP'])->name('verifyOTP');
 //Route::post('/all-programs', [DashboardController::class, 'getAllCourse'])->name('allCourse');
 Route::get('/course/{courseId}/programs', [DashboardController::class, 'getRelatedPrograms'])->name('get.programs');
-
+Route::post('/program-details', [DashboardController::class, 'getProgramDetail'])->name('programDetails');
+ 
 Route::group(['prefix'=>'account'],function(){
     //guest middleware
     Route::group(['middleware'=>'guest'],function(){

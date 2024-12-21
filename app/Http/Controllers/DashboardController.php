@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\TrainingPrograms;
+use App\Models\TrineePrograms;
 
 class DashboardController extends Controller
 {
@@ -41,5 +42,27 @@ class DashboardController extends Controller
             'status' => 'success',
             'programs' => $relatedPrograms
         ]);
+    }
+
+    public function getProgramDetail(Request $request){
+
+        $programId = $request->input('program_id');
+
+        $programs = TrineePrograms::with(['module', 'course', 'program','programVcDates'])
+        ->where('program_id', $programId)
+        ->where('status', 3)
+        ->get();
+
+        if($programs){
+            return response()->json([
+                'status' => 'success',
+                'programs' => $programs
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'programs' => []
+            ]);
+        }
     }
 }
