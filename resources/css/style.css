@@ -1,0 +1,25 @@
+.courses{
+    cursor: pointer;
+}
+.prog-list{
+    text-align: center;
+    color: #000cff;
+    background: antiquewhite;
+    padding: 5px;
+    border-radius: 3px;
+}
+.table-responsive{
+    padding: 10px;
+    border: 1px solid #1931c5;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.programs{
+    background: #ce815d;
+    color: aliceblue;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor:pointer
+}
