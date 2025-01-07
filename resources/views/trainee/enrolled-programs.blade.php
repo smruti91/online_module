@@ -1,5 +1,3 @@
-
-
 @extends('../layouts.app')
 @section('content')
 
@@ -23,19 +21,22 @@
 
                    <tr>
                      <th scope="col">SL No</th>
-                     <th scope="col">Program</th>
-
+                     <th scope="col">Course</th>
+                     <th scope="col">Start Date</th>
+                     <th scope="col">End Date</th>
                      <th scope="col">Status</th>
                      <th scope="col">Action</th>
                    </tr>
                  </thead>
                  <tbody>
+
                     @foreach($programs as $program)
 
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $program->program->program_name ?? 'N/A' }}</td>
-
+                        <td>Training Program on Financial matters for different department officers</td>
+                        <td>{{ \Carbon\Carbon::parse($program->program->start_date)->format('d-m-Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($program->program->end_date)->format('d-m-Y') }}</td>
                         <td>
                             @if($program->status == 1)
                                 Pending At Course Co-ordinating Officer
@@ -53,7 +54,9 @@
                             <!-- Send to Approve Button (if status is 1) -->
                             @if($program->status == 2)
                              <!-- Edit Button -->
-                             <a href="http://localhost/otm/users/trainee_class.php" class="btn btn-sm btn-primary">Go to Class</a>
+                             <x-redirect-form :id="$program->id" type="class">
+                                Go To Class
+                            </x-redirect-form>
 
                              <!-- Delete Button -->
 

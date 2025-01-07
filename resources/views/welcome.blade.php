@@ -211,13 +211,7 @@
                 padding: 0
             }
 
-            menu,
-            ol,
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0
-            }
+
 
             dialog {
                 padding: 0
@@ -909,22 +903,25 @@
                 }
             }
 
-            .programWrap{
+            .programWrap {
                 padding: 10px;
-               
+
                 box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
             }
-            .programWrap  h2{
+
+            .programWrap h2 {
                 background: #efa440;
                 color: #0c30b3;
 
-              }
-              .program-details p {
+            }
+
+            .program-details p {
                 font-size: 18px;
-              }
-              .program-details li{
+            }
+
+            .program-details li {
                 font-size: 18px;
-              }
+            }
         </style>
     @endif
 </head>
@@ -1015,17 +1012,18 @@
                                     </div>
                                     <div class="courseModuleWrap mt-3 d-none">
                                         <div class="col-sm-8">
-                                            <select class="form-select" name="module_id" id="module_id" aria-label="Default select example">
+                                            <select class="form-select" name="module_id" id="module_id"
+                                                aria-label="Default select example">
                                                 <option selected value="0">Select Module</option>
                                                 <option value="1">Orientation Module</option>
                                                 <option value="2">Refresher Module</option>
                                                 {{-- <option value="3">Thematic Module</option>
                                                 <option value="4">Custom Module</option> --}}
-                                                
-              
-                                              </select>
+
+
+                                            </select>
                                         </div>
-                                       
+
                                     </div>
 
                                     <div class="courseWrap2 d-none mt-2">
@@ -1033,58 +1031,141 @@
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered">
                                                     <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Course Name </th>
-                                                        <th scope="col">Action</th>
-                                                        
-                                                    </tr>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Course Name </th>
+                                                            <th scope="col">Action</th>
+
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Training Program on Financial matters for different department officers</td>
-                                                        <td><button class="btn btn-primary course" data-course-id="1" >Know More</button></td>
-                                                        
-                                                    </tr>
-                                                   
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Training Program on Financial matters for different
+                                                                department officers</td>
+                                                            <td><button class="btn btn-primary course"
+                                                                    data-course-id="1">Know More</button></td>
+
+                                                        </tr>
+
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
 
                                     </div>
+                                    <div class="SearchBox d-none mt-3">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="searchCourseText"
+                                                    placeholder="Search Course">
+                                            </div>
+                                            <div class="col-2">
+                                                <button class="btn btn-primary" id="searchCourseBtn">Search</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="programWrap mt-2" id="textArea" style="max-height: 50vh;overflow: auto;"></div>
+                                        </div>
+                                    </div>
                                     <!-- Modal -->
 
-                                    <div class="modal fade" id="programModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="programModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                        <p style="color: black;font-size: 17px;">This virtual programme is meant to serve DDOs and, staff interested for financial acts, rules, & regulations
+                                                        relating to income and expenditure of Government money.</p>
+<br>
+                                                    <p style="color: black;font-size: 17px;">This programme is specially designed for imparting financial training to different
+                                                        govt departments such as Medical officers of health department, officers of Industory department,
+                                                         Fisheries Department, Handloom & Textile &epartment, different universities,
+                                                         ITI principals etc.</p>
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-6 programWrap">
+                                                            <h2 class="text-center fs-3">Programs</h2>
+                                                            <hr>
+                                                            <div class="mt-3" id="related-programs"></div>
+                                                        </div>
+                                                        <div class="col-6 programWrap">
+                                                            <h2 class="text-center fs-3">Programs Details</h2>
+                                                            <hr>
+                                                            <div class="mt-3" id="program-details"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save
+                                                        changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- <div class="modal fade" id="subjectModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                        <div class="modal-dialog modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-center" id="exampleModalLabel">topic
+                                                        Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+
+                                                        <div class="col-12 programWrap">
+                                                            <h2 class="text-center fs-3">Topic Details</h2>
+                                                            <hr>
+                                                            <div class="mt-3" id="topic-details"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save
+                                                        changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    <div class="modal fade" id="topicModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
                                             <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="exampleModalLabel">Course Details</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              <h5 class="modal-title" id="exampleModalLabel">Topic Details</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="row">
-                                                   <div class="col-6 programWrap">
-                                                    <h2 class="text-center fs-3">Programs</h2>
-                                                    <hr>
-                                                    <div class="mt-3" id="related-programs"></div>
-                                                   </div>
-                                                   <div class="col-6 programWrap">
-                                                    <h2 class="text-center fs-3">Programs Details</h2>
-                                                    <hr>
-                                                    <div class="mt-3" id="program-details"></div>
-                                                   </div>
+
+                                                    <div class="col-12 programWrap">
+
+                                                        <div class="mt-3" id="topic-details"></div>
+                                                    </div>
                                                 </div>
-                                               
                                             </div>
                                             <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                                             </div>
+                                          </div>
                                         </div>
-                                        </div>
-                                    </div>
+                                      </div>
                                     {{-- <div class="row">
                                             <div class="col-2 d-flex justify-content-center align-items-center ">
                                                 <img src="resources/images/icons/book.png" alt="login" style="width:40px">
@@ -1385,7 +1466,7 @@
     <script src="resources/js/click-scroll.js"></script>
     <script src="resources/js/custom.js"></script>
     <script>
-         $.ajaxSetup({
+        $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
             }
@@ -1393,118 +1474,317 @@
         $('.courseSearch').click(function() {
             let course = $(this).val();
             console.log(course);
-            if( course=='moduleWise'){
-
+            if (course == 'moduleWise') {
                 $('.courseModuleWrap').removeClass('d-none');
-            }else{
+                $('.SearchBox').addClass('d-none');
+            } else {
                 $('.courseModuleWrap').addClass('d-none');
+                $('.courseWrap2').addClass('d-none');
+                $('.SearchBox').removeClass('d-none');
             }
         })
 
-        $('#module_id').change(function(){
+        $('#module_id').change(function() {
             let module_id = $(this).val();
             console.log(module_id);
 
-            if(module_id == 1){
+            if (module_id == 1) {
                 $('.courseWrap2').removeClass('d-none');
 
             }
         });
+        $('#searchCourseBtn').on('click', function() {
+            let courseTxt = $('#searchCourseText').val();
+            console.log(courseTxt)
+            $.ajax({
+                url: "{{ route('searchSubject') }}", // Your route to fetch courses
+                type: 'POST',
+                data: {
+                    courseTxt: courseTxt
+                },
+                success: function(response) {
+                    // console.log(response.data)
+                    $('#textArea').empty();
+
+                    const formatDate = (date) => {
+                            if (!date) return 'N/A'; // Handle missing or null dates
+                            const d = new Date(date);
+                            return d.toLocaleDateString('en-GB'); // Formats as dd/mm/yyyy
+                        };
+                    if (response.data.length > 0) {
+                        response.data.forEach(data => {
+                            console.log(response.data)
+                            let html = `
+                            <div class="subject">
+                                 <div class="row m-2">
+                                    <div class="col-md-4">
+                                        Course:
+                                    </div>
+                                     <div class="col-md-8">
+                                       ${data.course ? data.course.course_name : 'N/A'}
+                                    </div>
+                                 </div>
+
+                                <div class="row m-2">
+                                    <div class="col-md-4">
+                                        Subject:
+                                    </div>
+                                     <div class="col-md-8">
+                                      ${data.course ? data.subject_name : 'N/A'}
+                                    </div>
+                                 </div>
+                                <div class="row m-2">
+                                    <div class="col-md-4">
+                                        Topics:
+                                    </div>
+                                     <div class="col-md-8">
+                                        <ol class="">
+                                            ${data.topics.map(topic => `<li>${topic.topic_name}</li>`).join('')}
+                                        </ol>
+                                    </div>
+                                 </div>
+
+                                  <div class="row m-2">
+                                    <div class="col-md-4">
+                                        Programs:
+                                    </div>
+                                     <div class="col-md-8">`;
+                                        html += '<div class="accordion" id="accordionExample">';
+                            data.course.program.forEach(function(program, index) {
+                                html += `
+            <div class="accordion-item mb-2">
+                <h3 class="accordion-header" id="heading_${index}" style="background:#6fbef2">
+                    <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse_${index}"
+                        aria-expanded="${index === 0 ? 'true' : 'false'}"
+                        aria-controls="collapse_${index}">
+                        Program- ${index + 1} (${formatDate(program.start_date)} - ${formatDate(program.en_end_date)})
+                    </button>
+                </h3>
+                <div id="collapse_${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}"
+                    aria-labelledby="heading_${index}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="program-details">
+                            <p><strong>Module Name:</strong> ${program.module?.module_name || 'N/A'}</p>
+                            <p><strong>Duration:</strong> ${program.duration || 'N/A'} days</p>
+                            <p><strong>Enrollment Start Date:</strong> ${formatDate(program.en_start_date)}</p>
+                            <p><strong>Enrollment End Date:</strong> ${formatDate(program.en_end_date)}</p>
+                            <p><strong>Training Program Start Date:</strong> ${formatDate(program.start_date)}</p>
+                            <p><strong>Training Program End Date:</strong> ${formatDate(program.end_date)}</p>
+
+
+                            <ul>`;
+                                program.program_vc_dates?.forEach(function(vc_date) {
+                                    html +=
+                                        `<li class="list-unstyled" ><strong>${vc_date.description}:</strong> ${formatDate(vc_date.vc_date)}</li>`;
+                                });
+                                html += `
+
+                            </ul>
+                             <p><strong>Panel Discussion Date:</strong> ${formatDate(program.exam_date)}</p>
+                             <p><strong>Exam Date:</strong> ${formatDate(program.exam_date)}</p>
+                             <button class="btn btn-primary cltSubject" data-subject-id = ${program.course_id} >Login </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+                            });
+                            html += '</div>';
+
+                            html += `</div>
+                                 </div>
+
+                            </div>
+                        `;
+                            $('#textArea').append(html);
+                        })
+                    }
+                    //$('#topic-details').html(response);
+
+                },
+                error: function(xhr) {
+                    console.error(xhr);
+                    $('#moduleWrap').html('<p>An error occurred while fetching courses.</p>');
+                }
+            });
+        })
 
         $('.course').on('click', function() {
 
             const courseId = $(this).attr('data-course-id');
             console.log(courseId);
             $.ajax({
-            url: "{{ url('/course') }}/" + courseId + "/programs",
-            type: "GET",
-            success: function (response) {
-                if (response.status === 'success') {
-                    let programs = response.programs;
-                    let html = '';
+                url: "{{ url('/course') }}/" + courseId + "/programs",
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    if (response.status === 'success') {
+                        let programs = response.programs;
+                        let html = '';
 
-                    if (programs.length > 0) {
-                        html += '<ul class="list-group">';
-                        programs.forEach(function (program) {
-                            html += `<li class="list-group-item programItem" data-program-id="${program.id}" style="background-color: #4d57cb;color: #ffffff;margin-bottom: 10px;cursor: pointer;font-size:13px" >
-                                ${program.program_name}</li>`;
+                        const formatDate = (date) => {
+                            if (!date) return 'N/A'; // Handle missing or null dates
+                            const d = new Date(date);
+                            return d.toLocaleDateString('en-GB'); // Formats as dd/mm/yyyy
+                        };
+
+                        if (programs.length > 0) {
+                            html += '<div class="accordion" id="accordionExample">';
+                            programs.forEach(function(program, index) {
+                                html += `
+            <div class="accordion-item mb-2">
+                <h3 class="accordion-header" id="heading_${index}" style="background:#6fbef2">
+                    <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse_${index}"
+                        aria-expanded="${index === 0 ? 'true' : 'false'}"
+                        aria-controls="collapse_${index}">
+                        Program- ${index + 1} (${formatDate(program.start_date)} - ${formatDate(program.en_end_date)})
+                    </button>
+                </h3>
+                <div id="collapse_${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}"
+                    aria-labelledby="heading_${index}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="program-details">
+                            <p><strong>Module Name:</strong> ${program.module?.module_name || 'N/A'}</p>
+                            <p><strong>Duration:</strong> ${program.program?.duration || 'N/A'} days</p>
+                            <p><strong>Enrollment Start Date:</strong> ${formatDate(program.en_start_date)}</p>
+                            <p><strong>Enrollment End Date:</strong> ${formatDate(program.en_end_date)}</p>
+                            <p><strong>Training Program Start Date:</strong> ${formatDate(program.start_date)}</p>
+                            <p><strong>Training Program End Date:</strong> ${formatDate(program.end_date)}</p>
+
+
+                            <ul>`;
+                                program.program_vc_dates?.forEach(function(vc_date) {
+                                    html +=
+                                        `<li class="list-unstyled" ><strong>${vc_date.description}:</strong> ${formatDate(vc_date.vc_date)}</li>`;
+                                });
+                                html += `
+
+                            </ul>
+                             <p><strong>Panel Discussion Date:</strong> ${formatDate(program.exam_date)}</p>
+                             <p><strong>Exam Date:</strong> ${formatDate(program.exam_date)}</p>
+                             <button class="btn btn-primary cltSubject" data-subject-id = ${program.course_id} >View Subject </button>
+                             <button class="btn btn-primary cltLogin" data-program-id = ${program.id} >Login </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+                            });
+                            html += '</div>';
+
+                        } else {
+                            html = '<p>No related programs found.</p>';
+                        }
+
+
+                        $('#related-programs').html(html);
+                        $('#programModal').modal('show');
+
+                        $('.cltLogin').on('click', function() {
+                            let program_id = $(this).attr('data-program-id');
+                            console.log(program_id);
+                            loginToEnroll(program_id)
                         });
-                        html += '</ul>';
-                    } else {
-                        html = '<p>No related programs found.</p>';
-                    }
 
-                    $('#related-programs').html(html);
-                    $('#programModal').modal('show');
-                    $('.programItem').on('click',function(){
-                        let program_id = $(this).attr('data-program-id');
-                        getProgramDetail(program_id)
-                    });
-                } else {
-                    $('#related-programs').html('<p>Error fetching data. Please try again.</p>');
+                        // subject details
+                        $('.cltSubject').click(function() {
+                            let courseId = $(this).attr('data-subject-id');
+
+                            $.ajax({
+                                url: "{{ route('getSubject') }}", // Your route to fetch courses
+                                type: 'POST',
+                                data: {
+                                    course_id: courseId
+                                },
+                                success: function(response) {
+                                    console.log(response)
+
+                                    $('#program-details').html(response);
+
+
+                                    //topic details
+
+                                    $(document).on('click', '.subject', function() {
+                                        let subjectId = $(this).attr(
+                                            'data-subjectId');
+                                        console.log(subjectId);
+
+                                        $.ajax({
+                                            url: "{{ route('allTopics') }}", // Your route to fetch courses
+                                            type: 'POST',
+                                            data: {
+                                                subject_id: subjectId
+                                            },
+                                            success: function(
+                                                response) {
+                                                console.log(
+                                                    response
+                                                    )
+
+                                                $('#topicModal')
+                                                    .modal(
+                                                        'show');
+                                                $('#topic-details')
+                                                    .html(
+                                                        response
+                                                        );
+
+
+                                            },
+                                            error: function(xhr) {
+                                                console.error(
+                                                    xhr);
+                                                $('#moduleWrap')
+                                                    .html(
+                                                        '<p>An error occurred while fetching courses.</p>'
+                                                    );
+                                            }
+                                        });
+                                    });
+
+
+                                },
+                                error: function(xhr) {
+                                    console.error(xhr);
+                                    $('#moduleWrap').html(
+                                        '<p>An error occurred while fetching courses.</p>'
+                                    );
+                                }
+                            });
+                        })
+                    } else {
+                        $('#related-programs').html('<p>Error fetching data. Please try again.</p>');
+                    }
+                },
+                error: function() {
+                    $('#related-programs').html('<p>An error occurred. Please try again.</p>');
                 }
-            },
-            error: function () {
-                $('#related-programs').html('<p>An error occurred. Please try again.</p>');
-            }
-         });
+            });
 
 
         });
-        
-       function getProgramDetail(program_id){
-       
+
+      function loginToEnroll(program_id){
         $.ajax({
-            url: "{{ route('programDetails') }}",
-            type: "POST",
-            data:{program_id:program_id},
-
-            success: function (response) {
-                console.log(response);
-                if (response.status === 'success') {
-                   
-                    let programs = response.programs;
-
-                    let html = '';
-
-                    if (programs.length > 0) {
-                        html += '<ul class="list-group">';
-                        programs.forEach(function (program) {
-                            html += `<div class="program-details">
-                                      
-                                        <p><strong>Program Name:</strong> ${program.program.program_name}</p>
-                                        <p><strong>Duration:</strong> ${program.program.duration} days</p>
-                                        <p><strong>Start Date:</strong> ${program.start_date}</p>
-                                        <p><strong>End Date:</strong> ${program.end_date}</p>
-                                        <p><strong>Enrollment Start Date:</strong> ${program.en_start_date}</p>
-                                        <p><strong>Enrollment End Date:</strong> ${program.en_end_date}</p>
-                                        <p><strong>Exam Date:</strong> ${program.exam_date}</p>`;
-                            program.program_vc_dates.forEach(function(vc_date){
-                                 
-                                html +=`<li><strong>${vc_date.description}:</strong> ${vc_date.vc_date}</li>`
-                            })
-
-                            html +=`<button class="btn btn-primary" >View Subject </button>`;
-                            html += `</div>`;
-                        });
-                        html += '</ul>';
-                    } else {
-                        html = '<p>No related programs found.</p>';
-                    }
-
-                     $('#program-details').html(html);
-                    
-                   
-                } else {
-                    $('#program-details').html('<p>Error fetching data. Please try again.</p>');
+            url: "{{ route('loginToenroll') }}", // Your route to fetch courses
+            type: 'POST',
+            data: {
+                program_id: program_id
+            },
+            success: function(response) {
+                console.log(response)
+                if (response.status == 'success') {
+                   window.location.href = '{{route('login')}}'
                 }
             },
-            error: function () {
-                $('#related-programs').html('<p>An error occurred. Please try again.</p>');
+            error: function(xhr) {
+                console.error(xhr);
+                $('#moduleWrap').html(
+                    '<p>An error occurred while fetching courses.</p>'
+                );
             }
-         });
-       }
-
+        });
+      }
     </script>
 </body>
 

@@ -144,7 +144,7 @@ public function getProgramDetails(Request $request)
             $enroll = new TraineeEnrolledPrograms();
             $enroll->user_id = $userId;
             $enroll->program_id = $program_id;
-            $enroll->status = 1;
+            $enroll->status = 2;
             $enroll->save();
 
             return response()->json([ 'success' => true,'message' => 'Request Send successfully'], 200);

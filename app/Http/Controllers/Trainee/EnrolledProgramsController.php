@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 class EnrolledProgramsController extends Controller
 {
     public function getEnrolledPrograms(){
+
          $userId = Auth::id();
+
          $programs = TraineeEnrolledPrograms::with('program')
                      ->where('user_id', $userId)
                      ->get();

@@ -217,7 +217,6 @@ $(document).ready(function () {
     $(document).on('click', '.requestToEnroll', function () {
         let programId = $(this).attr('data-programId');
 
-
         $.ajax({
             url: "{{ route('requestToEnroll') }}", // Your route to fetch courses
             type: 'POST',

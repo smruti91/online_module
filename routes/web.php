@@ -5,7 +5,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Deo\ManageProgramController;
 
+use App\Http\Controllers\Admin\QuestionBankController;
 use App\Http\Controllers\Trainee\ModuleWiseController;
+use App\Http\Controllers\Trainee\PracticeTestController;
+use App\Http\Controllers\Trainee\TraineeClassController;
+use App\Http\Controllers\Trainee\TraineeQueryController;
 use App\Http\Controllers\Trainee\EnrolledProgramsController;
 use App\Http\Controllers\CourseDirector\ApproveProgramController;
 
@@ -14,13 +18,18 @@ Route::get('/', function () {
 });
 
 Route::get('/login',[LoginController::class,'index'])->name('login');
+
 Route::get('/register',[LoginController::class,'register'])->name('register');
 Route::post('/send-otp', [LoginController::class, 'sendOTP'])->name('sendOTP');
 Route::post('/verify-otp', [LoginController::class, 'verifyOTP'])->name('verifyOTP');
 //Route::post('/all-programs', [DashboardController::class, 'getAllCourse'])->name('allCourse');
 Route::get('/course/{courseId}/programs', [DashboardController::class, 'getRelatedPrograms'])->name('get.programs');
-Route::post('/program-details', [DashboardController::class, 'getProgramDetail'])->name('programDetails');
- 
+// Route::post('/program-details', [DashboardController::class, 'getProgramDetail'])->name('programDetails');
+Route::post('/subject-details', [DashboardController::class, 'getAllSubjects'])->name('getSubject');
+Route::post('/topic-details', [DashboardController::class, 'getAllTopics'])->name('allTopics');
+Route::post('/subject-search-details', [DashboardController::class, 'getSearchSubject'])->name('searchSubject');
+Route::post('/loginToenroll', [DashboardController::class, 'loginToenroll'])->name('loginToenroll');
+
 Route::group(['prefix'=>'account'],function(){
     //guest middleware
     Route::group(['middleware'=>'guest'],function(){
@@ -36,6 +45,9 @@ Route::group(['middleware'=>'useradmin'],function(){
 
     Route::group(['middleware'=>'admin'],function(){
         Route::get('/admin/dashboard',[DashboardController::class,'dashboard'])->name('admin.dashboard');
+        Route::get('/admin/questions',[QuestionBankController::class,'getQuestions'])->name('manage.question');
+        Route::get('/get-subjects', [QuestionBankController::class, 'getSubjects'])->name('get.subject');
+        Route::post('/add-question', [QuestionBankController::class, 'store'])->name('add.question');
     });
     Route::group(['middleware'=>'deo'],function(){
         Route::get('/deo/dashboard',[DashboardController::class,'dashboard'])->name('deo.dashboard');
@@ -59,6 +71,15 @@ Route::group(['middleware'=>'useradmin'],function(){
         Route::post('/topic/details', [ModuleWiseController::class, 'getAllTopics'])->name('fetch.allTopics');
         Route::post('/request-toEntoll', [ModuleWiseController::class, 'requestToEnroll'])->name('requestToEnroll');
         Route::get('/enrolled-programs', [EnrolledProgramsController::class, 'getEnrolledPrograms'])->name('get.enrolledPrograms');
+        Route::get('/trainee/enrollment',[LoginController::class,'enrollment'])->name('enrollment');
+
+        Route::post('/trainee-class', [TraineeClassController::class, 'handleRedirect'])->name('dynamic.redirect');
+        Route::post('/store-query', [TraineeQueryController::class, 'store'])->name('query.store');
+        Route::post('/load-query', [TraineeQueryController::class, 'index'])->name('query.load');
+        Route::post('/save-progress', [TraineeQueryController::class, 'saveProgress'])->name('save.progress');
+        Route::post('/practice-test', [PracticeTestController::class, 'index'])->name('practice-test');
+        Route::post('/practice-test/start', [PracticeTestController::class, 'startTest'])->name('start.test');
+
     });
     Route::group(['middleware'=>'cd'],function(){
         Route::get('/courseDirector/dashboard',[DashboardController::class,'dashboard'])->name('cd.dashboard');

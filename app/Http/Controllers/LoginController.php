@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\TrineePrograms;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -41,7 +42,11 @@ class LoginController extends Controller
                 return redirect()->intended('admin/dashboard');
             }
             else if(Auth::user()->role == 'trainee'){
-                return redirect()->intended('trainee/dashboard');
+                if (Session::has('selected_program_id')) {
+
+                    return redirect()->intended('trainee/enrollment');
+                }
+                    return redirect()->intended('trainee/dashboard');
             }
             else if(Auth::user()->role == 'cd'){
                 return redirect()->intended('courseDirector/dashboard');
@@ -65,7 +70,26 @@ class LoginController extends Controller
     }
 
     public function register(){
+
+
         return view('register');
+    }
+
+    public function enrollment(Request $request){
+
+        $selectedProgramId = 0;
+
+        if (Session::has('selected_program_id')) {
+            $selectedProgramId = session('selected_program_id');
+        }
+
+
+        $programs = TrineePrograms::with(['module', 'course', 'program','programVcDates'])
+            ->where('id', $selectedProgramId)
+            ->where('status', 3)
+            ->get();
+
+        return view('trainee.enrollment',compact('programs'));
     }
 
     //send otp to user

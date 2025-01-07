@@ -35,17 +35,17 @@
 <body>
 
   <!-- ======= Header ======= -->
-  @include('layouts.header');
+  @include('layouts.header')
 <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  @include('layouts.sidebar');
+  @include('layouts.sidebar')
  <!-- End Sidebar-->
  <main id="main" class="main">
-  @yield('content');
+  @yield('content')
  </main>
  <!-- ======= Footer ======= -->
-  @include('layouts.footer');
+  @include('layouts.footer')
  <!-- End Footer -->
 
    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -63,6 +63,8 @@
 
    <!-- Template Main JS File -->
    <script src="{{ url('') }}/assets/js/main.js"></script>
+   <script src="{{ url('') }}/assets/js/common.js"></script>
+   <script src="{{ url('') }}/assets/ckeditor/ckeditor.js"></script>
 
  </body>
  <script>

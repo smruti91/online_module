@@ -9,9 +9,13 @@ class TraineeEnrolledPrograms extends Model
 {
     protected $table = 'tbl_trainee_enrolled_programs';
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
     // Relationship with Programs
     public function program(): BelongsTo
     {
-        return $this->belongsTo(TrainingPrograms::class, 'program_id');
+        return $this->belongsTo(TrineePrograms::class, 'program_id');
     }
 }
